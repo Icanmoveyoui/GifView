@@ -101,7 +101,7 @@ public class GifView extends View {
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		if (mMovie != null) {
+		/*	if (mMovie != null) {
 			int movieWidth = mMovie.width();
 			int movieHeight = mMovie.height();
 			int maximumWidth = MeasureSpec.getSize(widthMeasureSpec);
@@ -113,6 +113,16 @@ public class GifView extends View {
 		} else {
 			setMeasuredDimension(getSuggestedMinimumWidth(),
 					getSuggestedMinimumHeight());
+		}*/
+		if(mMovie!=null) {
+			int minW = mMovie.width() + getPaddingLeft() + getPaddingRight();
+			mMeasuredMovieWidth = resolveSizeAndState(minW, widthMeasureSpec, 1);
+			mScale=(float)mMeasuredMovieWidth/minW;
+			int minH = mMovie.height()+ getPaddingTop() + getPaddingBottom();
+			mMeasuredMovieHeight= (int)(minH*mScale);
+			setMeasuredDimension(mMeasuredMovieWidth, mMeasuredMovieHeight);
+		}else{
+			setMeasuredDimension(getSuggestedMinimumWidth(),getSuggestedMinimumHeight());
 		}
 	}
 
